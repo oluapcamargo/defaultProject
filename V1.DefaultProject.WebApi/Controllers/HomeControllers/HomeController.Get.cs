@@ -17,7 +17,7 @@ namespace V1.DefaultProject.WebApi.Controllers
 
         public async Task<IActionResult> Get()
         {
-            var result = await _mediator.Send(input);
+            var result = await _mediator.Send(null);
             return Ok(result);
         }
     }

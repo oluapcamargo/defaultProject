@@ -2,10 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using V1.DefaultProject.Application.Commands.HomeCommands;
+using V1.DefaultProject.Config.Extension;
+using V1.DefaultProject.Domain.Queries.HomeQueries;
 
 namespace V1.DefaultProject.WebApi
 {
@@ -21,6 +25,15 @@ namespace V1.DefaultProject.WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                }).ConfigureServices((hostContext, services) =>
+                {
+                    services.ConfigureDbContext(hostContext.Configuration);
+
+                    //Home
+                    services.AddMediatR(typeof(QueryGetByIdHomeCommandHandler));
+                    services.AddMediatR(typeof(QueryGetHomeCommandHandler));
+                    services.AddMediatR(typeof(CommandSalvarHomeHandler));
+
                 });
     }
 }

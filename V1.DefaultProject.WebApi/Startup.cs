@@ -1,13 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Reflection;
+using System.Text.Json;
+using V1.DefaultProject.Application.ViewModels;
+using V1.DefaultProject.Config.Extension;
+using V1.DefaultProject.Persistence.Context;
 
 namespace V1.DefaultProject.WebApi
 {
@@ -23,7 +24,12 @@ namespace V1.DefaultProject.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureDbContext(Configuration);
+            services.AddControllers();
+            services.AddSwaggerGen();
             services.AddControllersWithViews();
+            services.ConfigureApiDocExtension(Configuration, Assembly.GetExecutingAssembly());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,16 +47,24 @@ namespace V1.DefaultProject.WebApi
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                options.RoutePrefix = string.Empty;
+            });
             app.UseRouting();
 
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
+                endpoints.MapHealthChecks("/api/hc");
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(new ResultViewModel(true, $"API Projeto Padrão {env.EnvironmentName}")));
+                });
+                endpoints.MapControllers();
             });
         }
     }
