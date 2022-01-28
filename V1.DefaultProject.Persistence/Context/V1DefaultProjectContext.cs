@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using V1.DefaultProject.Domain.Entities;
+using V1.DefaultProject.Domain.Entities.Home;
 using V1.DefaultProject.Persistence.ModelConfiguration.Table;
 
 namespace V1.DefaultProject.Persistence.Context
@@ -14,6 +15,7 @@ namespace V1.DefaultProject.Persistence.Context
 
         }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Home> Home { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

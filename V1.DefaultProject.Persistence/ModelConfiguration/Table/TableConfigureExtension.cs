@@ -11,6 +11,8 @@ namespace V1.DefaultProject.Persistence.ModelConfiguration.Table
         public static void ApplyTableConfiguration(this ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UsuarioConfig());
+            modelBuilder.ApplyConfiguration(new HomeConfig());
+
         }
     }
 }

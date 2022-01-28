@@ -1,9 +1,13 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
 using System.Reflection;
 using System.Text.Json;
 using V1.DefaultProject.Application.ViewModels;
@@ -25,8 +29,52 @@ namespace V1.DefaultProject.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureDbContext(Configuration);
+            services.AddHttpContextAccessor();
+            services.ConfigureAutomapper();
+            services.ConfigureServices();
             services.AddControllers();
-            services.AddSwaggerGen();
+            services.AddMediatR(typeof(Startup));
+            //services.AddSwaggerGen();
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("V1", new OpenApiInfo
+            //    {
+            //        Version = "V1 - 27/01/2022",
+            //        Title = "Api .net Core 3.1",
+            //        Description = "Um exemplo de arquitetura .net core",
+            //        TermsOfService = new Uri("https://example.com/terms"),
+            //        Contact = new OpenApiContact
+            //        {
+            //            Name = "Paulo Henrique Camargo",
+            //            Email = "oluapcamargo@gmail.com",
+            //            Url = new Uri("https://github.com/oluapcamargo"),
+            //        },
+            //        License = new OpenApiLicense
+            //{
+            //    Name = "Example License",
+            //    Url = new Uri("https://example.com/license")
+            //}
+            //    });
+            //});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "",
+                    Description = "Um exemplo de arquitetura .net core",
+                    //TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Paulo Henrique Camargo",
+                        Email = "oluapcamargo@gmail.com",
+                        Url = new Uri("https://github.com/oluapcamargo"),
+                    }
+                });
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            });
+            
             services.AddControllersWithViews();
             services.ConfigureApiDocExtension(Configuration, Assembly.GetExecutingAssembly());
 
@@ -50,16 +98,16 @@ namespace V1.DefaultProject.WebApi
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                options.DocumentTitle = "API .net Core";
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Versão 1.0 - 27/01/2022");
                 options.RoutePrefix = string.Empty;
             });
-            app.UseRouting();
 
+            app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/api/hc");
                 endpoints.MapGet("/", async context =>
                 {
                     await context.Response.WriteAsync(JsonSerializer.Serialize(new ResultViewModel(true, $"API Projeto Padrão {env.EnvironmentName}")));

@@ -12,8 +12,10 @@ namespace V1.DefaultProject.Config.Extension
     {
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
+            //services.AddDbContext<V1DefaultProjectContext>(options =>
+            //    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<V1DefaultProjectContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseInMemoryDatabase(databaseName: "InMemoryDatabase"));
         }
     }
 }

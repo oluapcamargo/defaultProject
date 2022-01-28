@@ -11,13 +11,12 @@ namespace V1.DefaultProject.WebApi.Controllers
 {
     public partial class HomeController 
     {
-
         /// <summary>
-        /// Search all Home by filter.
+        /// Deletes a specific Home.
         /// </summary>
-        [HttpGet]
-        [Route("get")]
-        public async Task<IActionResult> Get([FromQuery] ObterHomeInput input)
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] DesativarHomeInput input)
         {
             var result = await _mediator.Send(input);
             return Ok(result);

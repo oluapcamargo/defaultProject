@@ -5,7 +5,7 @@ using V1.DefaultProject.Domain.ViewModels.Output.ResultView;
 
 namespace V1.DefaultProject.Domain.ViewModels.Input.Home
 {
-    public class ObterHomeInput : BaseRequestFilter, IRequest<Result<HomeOutput>>
+    public class ObterHomeInput : BaseRequestFilter, IRequest<Result<HomeListOutput>>
     {
     }
 }

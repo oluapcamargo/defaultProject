@@ -12,12 +12,13 @@ namespace V1.DefaultProject.WebApi.Controllers
     public partial class HomeController 
     {
 
+
         /// <summary>
-        /// Search all Home by filter.
+        /// Search one Home by filter.
         /// </summary>
         [HttpGet]
-        [Route("get")]
-        public async Task<IActionResult> Get([FromQuery] ObterHomeInput input)
+        [Route("getById")]
+        public async Task<IActionResult> GetById([FromQuery] ObterHomeByIdInput input)
         {
             var result = await _mediator.Send(input);
             return Ok(result);

@@ -10,11 +10,11 @@ using Microsoft.Extensions.Logging;
 namespace V1.DefaultProject.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    public partial class HomeController : Controller
+    public partial class UsuarioController : Controller
     {
         private readonly IMediator _mediator;
 
-        public HomeController(IMediator mediator)
+        public UsuarioController(IMediator mediator)
         {
             _mediator = mediator;
         }

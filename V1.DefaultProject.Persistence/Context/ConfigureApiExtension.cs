@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -12,28 +13,28 @@ namespace V1.DefaultProject.Persistence.Context
     {
         public static void ConfigureApiDocExtension(this IServiceCollection services, IConfiguration configuration, Assembly assembly)
         {
-            services.AddApiDoc(configuration, assembly);
+            //services.Add(configuration, assembly);
         }
 
         public static void UseApiDocExtension(this IApplicationBuilder app, IConfiguration configuration, Assembly assembly)
         {
-            // app.UseApiDoc(configuration, assembly);
+             //app.UseApiDoc(configuration, assembly);
 
 
             //app.();
             //app.UseSwagger(c =>
             //{
 
-            //if (!string.IsNullOrEmpty(basePath))
-            // {
-            //c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
-            //{
-            //if (!httpReq.Host.Host.Contains("localhost"))
-            //   swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer { Url = $"{basePath}" } };
-            //});
+            //    if (!string.IsNullOrEmpty(basePath))
+            //    {
+            //        c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+            //        {
+            //            if (!httpReq.Host.Host.Contains("localhost"))
+            //                swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer { Url = $"{basePath}" } };
+            //        });
 
-            //}
-            // });
+            //    }
+            //});
 
             //app.UseSwaggerUI(c =>
             //{

@@ -13,11 +13,10 @@ namespace V1.DefaultProject.WebApi.Controllers
     {
 
         /// <summary>
-        /// Search all Home by filter.
+        /// Update one Home by filter.
         /// </summary>
-        [HttpGet]
-        [Route("get")]
-        public async Task<IActionResult> Get([FromQuery] ObterHomeInput input)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateHomeInput input)
         {
             var result = await _mediator.Send(input);
             return Ok(result);

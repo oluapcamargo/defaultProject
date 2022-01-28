@@ -13,11 +13,10 @@ namespace V1.DefaultProject.WebApi.Controllers
     {
 
         /// <summary>
-        /// Search all Home by filter.
+        /// Add Home .
         /// </summary>
-        [HttpGet]
-        [Route("get")]
-        public async Task<IActionResult> Get([FromQuery] ObterHomeInput input)
+        [HttpPost]
+        public async Task<IActionResult> Insert([FromBody] HomeInput input)
         {
             var result = await _mediator.Send(input);
             return Ok(result);
