@@ -1,93 +1,61 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using V1.DefaultProject.WebApi.Controllers;
+using System.Linq;
+using System.Threading.Tasks;
+using V1.DefaultProject.Domain.Interfaces;
+using V1.DefaultProject.Domain.ViewModels.Input.Home;
 
 namespace V1.DefaultProject.Test
 {
     public class HomeControllerTest
     {
+        private readonly IHomeRepository _repository;
+
+        public HomeControllerTest() 
+        {
+            _repository = new FakeRepository.HomeFakeRepository();
+        }
         [Test]
-        public void Get()
+        public async Task CadastrarHome() 
         {
-
-            string html = string.Empty;
-            string url = @"http://localhost:5001/Home/Get";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                html = reader.ReadToEnd();
-            }
-            Console.WriteLine(html);
+            Domain.Entities.Home.Home  input = new Domain.Entities.Home.Home("Usuario Testes");
+            await _repository.AddAsync(input);
+            Assert.IsTrue(true);
+        }
+        [Test]
+        public async Task ObterTodosHome()
+        {
+            ObterHomeInput filter = new ObterHomeInput();
+            var okResult = await _repository.GetAll(filter);
+            Assert.IsTrue(okResult.Any());
         }
 
-        public void GetById()
+        [Test]
+        public async Task ObterById()
         {
-
-            string html = string.Empty;
-            string url = @"http://localhost:5001/Home/Get";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                html = reader.ReadToEnd();
-            }
-            Console.WriteLine(html);
+            ObterHomeInput filter = new ObterHomeInput();
+            var registro =  await _repository.GetAll(filter);
+            var okResult = await _repository.GetAsync(registro.First().Codigo);
+            Assert.IsTrue(okResult.DataCriacao != (DateTime?)null? true : false);
         }
 
-        public void Delete()
+        [Test]
+        public async Task Desativar()
         {
-
-            string html = string.Empty;
-            string url = @"http://localhost:5001/Home/Get";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                html = reader.ReadToEnd();
-            }
-            Console.WriteLine(html);
+            ObterHomeInput filter = new ObterHomeInput();
+            var registro = await _repository.GetAll(filter);
+            await _repository.RemoveByIdAsync(registro.First().Codigo);
+            Assert.IsTrue(true);
         }
-
-        public void Insert()
+        [Test]
+        public async Task Update()
         {
-
-            string html = string.Empty;
-            string url = @"http://localhost:5001/Home/Insert?Desenvolvedor=Joao";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                html = reader.ReadToEnd();
-            }
-            Console.WriteLine(html);
-        }
-        public void Update()
-        {
-
-            string html = string.Empty;
-            string url = @"http://localhost:5001/Home/Get";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                html = reader.ReadToEnd();
-            }
-            Console.WriteLine(html);
+            ObterHomeInput filter = new ObterHomeInput();
+            var registro = await _repository.GetAll(filter);
+            var item = registro.First();
+            item.Desenvolvedor += " / Update Metodos;";
+            await _repository.UpdateAsync(item);
+            Assert.IsTrue(true);
         }
     }
 }

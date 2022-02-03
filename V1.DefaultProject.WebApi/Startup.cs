@@ -34,28 +34,6 @@ namespace V1.DefaultProject.WebApi
             services.ConfigureServices();
             services.AddControllers();
             services.AddMediatR(typeof(Startup));
-            //services.AddSwaggerGen();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("V1", new OpenApiInfo
-            //    {
-            //        Version = "V1 - 27/01/2022",
-            //        Title = "Api .net Core 3.1",
-            //        Description = "Um exemplo de arquitetura .net core",
-            //        TermsOfService = new Uri("https://example.com/terms"),
-            //        Contact = new OpenApiContact
-            //        {
-            //            Name = "Paulo Henrique Camargo",
-            //            Email = "oluapcamargo@gmail.com",
-            //            Url = new Uri("https://github.com/oluapcamargo"),
-            //        },
-            //        License = new OpenApiLicense
-            //{
-            //    Name = "Example License",
-            //    Url = new Uri("https://example.com/license")
-            //}
-            //    });
-            //});
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
