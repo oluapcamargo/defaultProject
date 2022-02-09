@@ -1,0 +1,26 @@
+﻿{
+  "Name": "Local",
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=appv1;AccountKey=X/9NnGE9dOu6uJaLl7ZKkgA4U8ZlGv88KhPzc4uEbvkXyp6/Z2cfMJabGpbJcomv43DjwD1Mrq304d5vnH6MRQ==;BlobEndpoint=https://appv1.blob.core.windows.net/;QueueEndpoint=https://appv1.queue.core.windows.net/;TableEndpoint=https://appv1.table.core.windows.net/;FileEndpoint=https://appv1.file.core.windows.net/;",
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=appv1;AccountKey=X/9NnGE9dOu6uJaLl7ZKkgA4U8ZlGv88KhPzc4uEbvkXyp6/Z2cfMJabGpbJcomv43DjwD1Mrq304d5vnH6MRQ==;EndpointSuffix=core.windows.net",
+    "KEY_VAL_URL": "wtvWFdsDuDfK7vBU7fRfLNnnXNrF9H+kesG+CvBO5YqWP5tKaDG4eoinRE1JZgP9zcOR0UhoECyR0AqMKdTF0g==",
+    "STORAGE_URL": "DefaultEndpointsProtocol=https;AccountName=anaprostorage;AccountKey=wtvWFdsDuDfK7vBU7fRfLNnnXNrF9H+kesG+CvBO5YqWP5tKaDG4eoinRE1JZgP9zcOR0UhoECyR0AqMKdTF0g==;EndpointSuffix=core.windows.net"
+  },
+  "QueuesOptions": {
+    "BatchSize": "16",
+    "NewBatchThreshold": "8",
+    "MaxPollingIntervalSeg": "1",
+    "MaxDequeueCount": "5",
+    "VisibilityTimeoutSeg": "10"
+  }
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=tcp:v1-dbserver.database.windows.net,1433;Initial Catalog=sqlv1-base-dev;User ID=v1-admin;Password=v1@P673B#Globalsys;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60",
+  },
+  "AzureStorage": {
+    "Url": ""
+  },
+  "Api": {
+    "Title": "[DEV] Function"
+  }
+}

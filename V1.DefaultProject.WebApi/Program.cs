@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using V1.DefaultProject.Application.Commands.HomeCommands;
 using V1.DefaultProject.Application.Commands.UsuarioCommands;
 using V1.DefaultProject.Config.Extension;
