@@ -13,7 +13,7 @@ namespace V1.DefaultProject.FunctionsAzure.Functions
         {
             _homeRepositorio = homeRepositorio;
         }
-        [FunctionName("FunctionCicloUpdateUser")]
+        [FunctionName("FunctionQueueCicloUpdateUser")]
         public async Task Run([QueueTrigger("queue-update-user", Connection = "StorageConnectionString")] Guid input)
         {
             Console.WriteLine("FunctionCicloUpdateUser Iniciada");
